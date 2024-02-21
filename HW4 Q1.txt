@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    double loanAmount, yearlyInterestRate, monthlyPayment, monthlyInterest;
+    int paymentNumber;
+    
+    printf("Enter amount of loan: $ ");
+    scanf("%lf", &loanAmount);
+    printf("Enter interest rate per year: %% ");
+    scanf("%lf", &yearlyInterestRate);
+    printf("Enter number of payments: ");
+    scanf("%d", &paymentNumber);
+    
+    monthlyInterest = yearlyInterestRate / 1200;
+    monthlyPayment = monthlyInterest*pow(1 + monthlyInterest, paymentNumber) * loanAmount / (pow(1 + monthlyInterest, paymentNumber) - 1);
+    
+    printf("\nMonthly payment should be %.2lf\n", monthlyPayment);
+    printf("========================AMORTIZATION SCHEDULE========================\n");
+    double beginningBalance = loanAmount, endingBalance, interest;
+    printf("%-10s%-15s%-15s%-15s%-15s\n", "#", "Payment", "Principal", "Interest", "Balance");
+    
+        for(int month = 1; month <= paymentNumber; month++) {
+            interest = beginningBalance * monthlyInterest;
+            endingBalance = beginningBalance - (monthlyPayment - interest);
+            printf("%-10d$%-14.2lf$%-14.2lf$%-14.2lf$%-14.2lf\n", month, monthlyPayment, (monthlyPayment - interest), interest, endingBalance);
+            beginningBalance = endingBalance;
+        }
+    return 0;
+}

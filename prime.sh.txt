@@ -1,0 +1,26 @@
+#!/bin/bash
+
+testNumber=3
+checkNumber=0
+count=0
+
+    echo "Enter the value of n: "
+    read n
+
+        echo "First $n prime numbers are: "
+        echo "2 "
+            for (( count=2; $count<=$n; testNumber++ ))
+            do
+                for (( checkNumber=2; $checkNumber<$testNumber; checkNumber++ ))
+                do
+                    if [ `expr $testNumber % $checkNumber` -eq 0 ]
+                    then
+                    break
+                    fi
+                done
+            if [ $checkNumber -eq $testNumber ]
+            then
+            echo "$testNumber "
+            ((count++))
+            fi
+            done
